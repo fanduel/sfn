@@ -180,7 +180,7 @@ module Sfn
               end
               run_callbacks_for(:template, :stack_name => arguments.first, :sparkle_stack => sf)
               if(sf.nested? && config[:apply_nesting])
-                validate_nesting_bucket!
+                validate_staging_bucket!
                 if(config[:apply_nesting] == true)
                   config[:apply_nesting] = :deep
                 end
@@ -207,11 +207,11 @@ module Sfn
           end
         end
 
-        # Force user friendly error if nesting bucket is not set within configuration
-        def validate_nesting_bucket!
-          if(config[:nesting_bucket].to_s.empty?)
-            ui.error 'Missing required configuration value for `nesting_bucket`. Cannot generated nested templates!'
-            raise ArgumentError.new 'Required configuration value for `nesting_bucket` not provided.'
+        # Force user friendly error if staging bucket is not set within configuration
+        def validate_staging_bucket!
+          if(config[:staging_bucket].to_s.empty?)
+            ui.error 'Missing required configuration value for `staging_bucket`. Cannot generated nested templates!'
+            raise ArgumentError.new 'Required configuration value for `staging_bucket` not provided.'
           end
         end
 
@@ -224,7 +224,7 @@ module Sfn
           sf.apply_nesting(:shallow) do |stack_name, stack, resource|
             run_callbacks_for(:template, :stack_name => stack_name, :sparkle_stack => stack)
             bucket = provider.connection.api_for(:storage).buckets.get(
-              config[:nesting_bucket]
+              config[:staging_bucket]
             )
             if(config[:print_only])
               template_url = "http://example.com/bucket/#{name_args.first}_#{stack_name}.json"
@@ -273,7 +273,7 @@ module Sfn
               )
             end
             full_stack_name = [
-              config[:nesting_prefix],
+              config[:staging_prefix],
               stack.root_path.map(&:name).map(&:to_s).join('_')
             ].compact.join('/')
             unless(config[:print_only])
@@ -285,10 +285,10 @@ module Sfn
               )
               stack_definition = dump_stack_for_storage(stack)
               bucket = provider.connection.api_for(:storage).buckets.get(
-                config[:nesting_bucket]
+                config[:staging_bucket]
               )
               unless(bucket)
-                raise "Failed to locate configured bucket for stack template storage (#{config[:nesting_bucket]})!"
+                raise "Failed to locate configured bucket for stack template storage (#{config[:staging_bucket]})!"
               end
               file = bucket.files.build
               file.name = "#{full_stack_name}.json"

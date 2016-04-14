@@ -51,12 +51,12 @@ module Sfn
         :short_flag => 'a'
       )
       attribute(
-        :nesting_bucket, String,
-        :description => 'Bucket to use for storing nested stack templates',
+        :staging_bucket, String,
+        :description => 'Bucket to use for storing staged stack templates',
         :short_flag => 'N'
       )
       attribute(
-        :nesting_prefix, String,
+        :staging_prefix, String,
         :description => 'File name prefix for storing template in bucket',
         :short_flag => 'Y'
       )

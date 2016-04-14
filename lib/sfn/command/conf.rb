@@ -73,12 +73,12 @@ Configuration.new do
       creator ENV['USER']
     end
   end
-  #   Name of bucket in object store to hold nested
+  #   Name of bucket in object store to hold staged
   #   stack templates
-  # nesting_bucket 'BUCKET_NAME'
+  # staging_bucket 'BUCKET_NAME'
   #   Prefix used on generated template path prior to storage
   #   in the object store
-  # nesting_prefix 'nested-templates'
+  # staging_prefix 'staged-templates'
   #   Remote provider credentials
   credentials do
     #  Remote provider name (:aws, :azure, :open_stack, :rackspace)

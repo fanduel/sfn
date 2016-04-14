@@ -89,11 +89,11 @@ $ knife sparkleformation --help
 |                            | Valid         | `String`
 |                            | Default       | none
 |----------------------------|---------------|---------------------------------------------------------------
-| `nesting_bucket`           | Description   | Name of bucket to store nested stack templates
+| `staging_bucket`           | Description   | Name of bucket to store stack templates
 |                            | Valid         | `String`
 |                            | Default       | none
 |----------------------------|---------------|---------------------------------------------------------------
-| `nesting_prefix`           | Description   | Prefix to prepend to template file name within object store
+| `staging_prefix`           | Description   | Prefix to prepend to template file name within object store
 |                            | Valid         | `String`
 |                            | Default       | none
 |----------------------------|---------------|---------------------------------------------------------------

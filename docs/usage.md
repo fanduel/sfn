@@ -102,7 +102,7 @@ configuration:
 
 ~~~ruby
 Configuration.new do
-  nesting_bucket 'my-nested-templates'
+  staging_bucket 'my-staged-templates'
 end
 ~~~
 
